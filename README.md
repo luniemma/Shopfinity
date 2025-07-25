@@ -71,7 +71,7 @@ Copy
 bash
 Copy
 # Clone the repo
-git clone https://github.com/yourusername/ecommerce-platform.git
+git clone (https://github.com/luniemma/Shopfinity.git)
 
 # Install frontend
 cd client
