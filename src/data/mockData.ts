@@ -1,5 +1,83 @@
 import { Product, Category, User, Review } from '../types';
 
+export const mockOrders = [
+  {
+    id: 'order-1',
+    userId: '2',
+    items: [
+      {
+        id: 'item-1',
+        productId: '1',
+        product: products[0],
+        quantity: 1
+      }
+    ],
+    total: 199.99,
+    subtotal: 199.99,
+    tax: 16.00,
+    shipping: 0,
+    status: 'delivered' as const,
+    paymentStatus: 'completed' as const,
+    trackingNumber: 'TRK123456789',
+    shippingAddress: {
+      name: 'John Customer',
+      street: '123 Main St',
+      city: 'New York',
+      state: 'NY',
+      zipCode: '10001',
+      country: 'US'
+    },
+    billingAddress: {
+      name: 'John Customer',
+      street: '123 Main St',
+      city: 'New York',
+      state: 'NY',
+      zipCode: '10001',
+      country: 'US'
+    },
+    paymentMethod: 'card',
+    createdAt: '2024-01-10T10:30:00Z',
+    updatedAt: '2024-01-12T14:20:00Z'
+  },
+  {
+    id: 'order-2',
+    userId: '2',
+    items: [
+      {
+        id: 'item-2',
+        productId: '2',
+        product: products[1],
+        quantity: 1
+      }
+    ],
+    total: 299.99,
+    subtotal: 299.99,
+    tax: 24.00,
+    shipping: 9.99,
+    status: 'processing' as const,
+    paymentStatus: 'completed' as const,
+    shippingAddress: {
+      name: 'John Customer',
+      street: '123 Main St',
+      city: 'New York',
+      state: 'NY',
+      zipCode: '10001',
+      country: 'US'
+    },
+    billingAddress: {
+      name: 'John Customer',
+      street: '123 Main St',
+      city: 'New York',
+      state: 'NY',
+      zipCode: '10001',
+      country: 'US'
+    },
+    paymentMethod: 'card',
+    createdAt: '2024-01-20T15:45:00Z',
+    updatedAt: '2024-01-20T15:45:00Z'
+  }
+];
+
 export const categories: Category[] = [
   {
     id: '1',

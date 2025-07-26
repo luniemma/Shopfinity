@@ -2,7 +2,11 @@ import React from 'react';
 import { X, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../../contexts/CartProvider';
 
-const CartSidebar: React.FC = () => {
+interface CartSidebarProps {
+  onNavigate?: (page: string) => void;
+}
+
+const CartSidebar: React.FC<CartSidebarProps> = ({ onNavigate }) => {
   const { 
     items, 
     isOpen, 
@@ -131,7 +135,7 @@ const CartSidebar: React.FC = () => {
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  // Navigate to checkout would go here
+                  onNavigate?.('checkout');
                 }}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
               >

@@ -199,7 +199,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, searchQuery, o
           )}
         </div>
       </header>
-      <CartSidebar />
+      <CartSidebar onNavigate={onNavigate} />
     </>
   );
 };

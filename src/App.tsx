@@ -11,6 +11,8 @@ import ProductFilters from './components/Products/ProductFilters';
 import ProductDetail from './components/Products/ProductDetail';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import UserProfile from './components/Profile/UserProfile';
+import CheckoutFlow from './components/Checkout/CheckoutFlow';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import { products, categories, reviews } from './data/mockData';
 import { Product } from './types';
@@ -159,22 +161,23 @@ function AppContent() {
       case 'register':
         return <RegisterForm onNavigate={handleNavigate} />;
       
+      case 'profile':
+        return <UserProfile onNavigate={handleNavigate} />;
+      
+      case 'checkout':
+        return <CheckoutFlow onNavigate={handleNavigate} />;
+      
       case 'admin':
         return <AdminDashboard onNavigate={handleNavigate} />;
-      
-      case 'profile':
-        return (
-          <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">User Profile</h2>
-            <p className="text-gray-600">Profile management coming soon!</p>
-          </div>
-        );
       
       case 'orders':
         return (
           <div className="max-w-4xl mx-auto px-4 py-16 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Order History</h2>
-            <p className="text-gray-600">Order history will be displayed here.</p>
+            <p className="text-gray-600">Redirecting to profile...</p>
+            <script>
+              {setTimeout(() => handleNavigate('profile'), 1000)}
+            </script>
           </div>
         );
       

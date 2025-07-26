@@ -45,16 +45,22 @@ export interface Order {
   shippingAddress: Address;
   billingAddress: Address;
   paymentMethod: string;
+  paymentStatus: 'pending' | 'completed' | 'failed' | 'refunded';
+  trackingNumber?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface Address {
+  id?: string;
+  name: string;
   street: string;
+  street2?: string;
   city: string;
   state: string;
   zipCode: string;
   country: string;
+  isDefault?: boolean;
 }
 
 export interface Review {
@@ -73,4 +79,26 @@ export interface Category {
   slug: string;
   image: string;
   productCount: number;
+}
+
+export interface PaymentMethod {
+  id: string;
+  type: 'card' | 'paypal';
+  last4?: string;
+  brand?: string;
+  expiryMonth?: number;
+  expiryYear?: number;
+  isDefault: boolean;
+}
+
+export interface UserProfile extends User {
+  phone?: string;
+  dateOfBirth?: string;
+  addresses: Address[];
+  paymentMethods: PaymentMethod[];
+  preferences: {
+    newsletter: boolean;
+    smsNotifications: boolean;
+    emailNotifications: boolean;
+  };
 }
