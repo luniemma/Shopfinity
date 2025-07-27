@@ -57,7 +57,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onNavigate }) => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
-          <p className="text-gray-600">Join ShopHub and start shopping</p>
+          <p className="text-gray-600">Join Shopfinity and start shopping</p>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

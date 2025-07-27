@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, searchQuery, o
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0 cursor-pointer" onClick={() => onNavigate('home')}>
-              <h1 className="text-2xl font-bold text-blue-600">ShopHub</h1>
+              <h1 className="text-2xl font-bold text-blue-600">Shopfinity</h1>
             </div>
 
             {/* Desktop Navigation */}
