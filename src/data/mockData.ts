@@ -28,6 +28,13 @@ export const categories: Category[] = [
     slug: 'sports',
     image: 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     productCount: 9
+  },
+  {
+    id: '5',
+    name: 'African Traditional Dresses',
+    slug: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    productCount: 8
   }
 ];
 
@@ -138,6 +145,146 @@ export const products: Product[] = [
     featured: true,
     tags: ['smartphone', '128gb', 'triple-camera']
   }
+  },
+  {
+    id: '7',
+    name: 'Ankara Print Maxi Dress',
+    description: 'Beautiful handcrafted Ankara print maxi dress with vibrant African patterns. Perfect for special occasions and cultural celebrations.',
+    price: 89.99,
+    originalPrice: 119.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5704849/pexels-photo-5704849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://images.pexels.com/photos/5704850/pexels-photo-5704850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.9,
+    reviewCount: 87,
+    inStock: true,
+    stockCount: 25,
+    featured: true,
+    tags: ['ankara', 'maxi-dress', 'african-print', 'handcrafted']
+  },
+  {
+    id: '8',
+    name: 'Kente Cloth Traditional Dress',
+    description: 'Authentic Kente cloth dress with traditional Ghanaian patterns. Each piece tells a story through its intricate weaving and colors.',
+    price: 149.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325574/pexels-photo-5325574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325574/pexels-photo-5325574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.8,
+    reviewCount: 64,
+    inStock: true,
+    stockCount: 15,
+    featured: true,
+    tags: ['kente', 'ghanaian', 'traditional', 'authentic']
+  },
+  {
+    id: '9',
+    name: 'Dashiki Print Midi Dress',
+    description: 'Stylish dashiki print midi dress combining traditional African aesthetics with modern fashion. Comfortable and elegant.',
+    price: 69.99,
+    originalPrice: 89.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325575/pexels-photo-5325575.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325575/pexels-photo-5325575.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.6,
+    reviewCount: 92,
+    inStock: true,
+    stockCount: 32,
+    featured: false,
+    tags: ['dashiki', 'midi-dress', 'modern', 'comfortable']
+  },
+  {
+    id: '10',
+    name: 'Wax Print A-Line Dress',
+    description: 'Vibrant wax print A-line dress with bold geometric patterns. Made from high-quality African wax fabric with excellent drape.',
+    price: 79.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325576/pexels-photo-5325576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325576/pexels-photo-5325576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.7,
+    reviewCount: 78,
+    inStock: true,
+    stockCount: 28,
+    featured: false,
+    tags: ['wax-print', 'a-line', 'geometric', 'vibrant']
+  },
+  {
+    id: '11',
+    name: 'Bogolan Mud Cloth Dress',
+    description: 'Traditional Bogolan mud cloth dress from Mali with authentic hand-painted symbols. Each symbol carries cultural significance.',
+    price: 129.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325577/pexels-photo-5325577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325577/pexels-photo-5325577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.9,
+    reviewCount: 45,
+    inStock: true,
+    stockCount: 12,
+    featured: true,
+    tags: ['bogolan', 'mud-cloth', 'mali', 'hand-painted', 'cultural']
+  },
+  {
+    id: '12',
+    name: 'Kitenge Wrap Dress',
+    description: 'Elegant Kitenge wrap dress with East African prints. Features adjustable wrap design for perfect fit and comfort.',
+    price: 74.99,
+    originalPrice: 94.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325578/pexels-photo-5325578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325578/pexels-photo-5325578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.5,
+    reviewCount: 103,
+    inStock: true,
+    stockCount: 35,
+    featured: false,
+    tags: ['kitenge', 'wrap-dress', 'east-african', 'adjustable']
+  },
+  {
+    id: '13',
+    name: 'Adinkra Symbol Dress',
+    description: 'Beautiful dress featuring traditional Adinkra symbols from Ghana. Each symbol represents wisdom, courage, and cultural values.',
+    price: 99.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325579/pexels-photo-5325579.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325579/pexels-photo-5325579.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.8,
+    reviewCount: 67,
+    inStock: true,
+    stockCount: 20,
+    featured: true,
+    tags: ['adinkra', 'symbols', 'ghana', 'wisdom', 'cultural-values']
+  },
+  {
+    id: '14',
+    name: 'Shweshwe Print Dress',
+    description: 'South African Shweshwe print dress with distinctive geometric patterns. Made from high-quality cotton with traditional indigo dye.',
+    price: 84.99,
+    category: 'african-traditional-dresses',
+    image: 'https://images.pexels.com/photos/5325580/pexels-photo-5325580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    images: [
+      'https://images.pexels.com/photos/5325580/pexels-photo-5325580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    rating: 4.6,
+    reviewCount: 89,
+    inStock: true,
+    stockCount: 22,
+    featured: false,
+    tags: ['shweshwe', 'south-african', 'geometric', 'indigo', 'cotton']
 ];
 
 export const mockOrders = [
@@ -236,6 +383,33 @@ export const reviews: Review[] = [
     rating: 4,
     comment: 'Great headphones, battery life is as advertised. Very comfortable.',
     createdAt: '2024-01-14T15:45:00Z'
+  },
+  {
+    id: '3',
+    productId: '7',
+    userId: '3',
+    userName: 'Amara Okafor',
+    rating: 5,
+    comment: 'Absolutely stunning! The Ankara print is vibrant and the quality is exceptional. Perfect for my cultural event.',
+    createdAt: '2024-01-16T12:20:00Z'
+  },
+  {
+    id: '4',
+    productId: '8',
+    userId: '4',
+    userName: 'Kwame Asante',
+    rating: 5,
+    comment: 'Authentic Kente cloth with beautiful traditional patterns. The craftsmanship is outstanding!',
+    createdAt: '2024-01-17T09:15:00Z'
+  },
+  {
+    id: '5',
+    productId: '11',
+    userId: '5',
+    userName: 'Fatima Diallo',
+    rating: 5,
+    comment: 'The Bogolan mud cloth dress is a masterpiece. Each symbol tells a story. Highly recommend!',
+    createdAt: '2024-01-18T14:30:00Z'
   }
 ];
 
