@@ -23,6 +23,7 @@ export const products: Product[] = [
     inStock: true,
     featured: true,
     tags: ['wireless', 'bluetooth', 'headphones', 'audio', 'noise-cancellation'],
+    images: ['https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg'],
   },
   {
     id: '2',
@@ -36,6 +37,7 @@ export const products: Product[] = [
     inStock: true,
     featured: true,
     tags: ['smartwatch', 'fitness', 'health', 'wearable', 'sports'],
+    images: ['https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg'],
   },
   {
     id: '3',
@@ -49,6 +51,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['organic', 'cotton', 't-shirt', 'clothing', 'sustainable'],
+    images: ['https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg'],
   },
   {
     id: '4',
@@ -63,6 +66,7 @@ export const products: Product[] = [
     inStock: true,
     featured: true,
     tags: ['camera', 'photography', 'dslr', 'professional', 'electronics'],
+    images: ['https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg'],
   },
   {
     id: '5',
@@ -76,6 +80,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['yoga', 'fitness', 'mat', 'exercise', 'wellness'],
+    images: ['https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg'],
   },
   {
     id: '6',
@@ -89,6 +94,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['plants', 'ceramic', 'pots', 'gardening', 'home-decor'],
+    images: ['https://images.pexels.com/photos/1084199/pexels-photo-1084199.jpeg'],
   },
   {
     id: '7',
@@ -102,6 +108,7 @@ export const products: Product[] = [
     inStock: true,
     featured: true,
     tags: ['ankara', 'african', 'traditional', 'maxi-dress', 'handcrafted'],
+    images: ['https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg'],
   },
   {
     id: '8',
@@ -115,6 +122,7 @@ export const products: Product[] = [
     inStock: true,
     featured: true,
     tags: ['kente', 'ghanaian', 'traditional', 'handwoven', 'cultural'],
+    images: ['https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg'],
   },
   {
     id: '9',
@@ -129,6 +137,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['dashiki', 'african', 'midi-dress', 'traditional', 'modern'],
+    images: ['https://images.pexels.com/photos/1462637/pexels-photo-1462637.jpeg'],
   },
   {
     id: '10',
@@ -142,6 +151,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['wax-print', 'african', 'a-line', 'geometric', 'traditional'],
+    images: ['https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg'],
   },
   {
     id: '11',
@@ -155,6 +165,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['bogolan', 'mud-cloth', 'mali', 'traditional', 'hand-painted'],
+    images: ['https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg'],
   },
   {
     id: '12',
@@ -168,6 +179,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['kitenge', 'east-african', 'wrap-dress', 'cotton', 'vibrant'],
+    images: ['https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg'],
   },
   {
     id: '13',
@@ -181,6 +193,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['adinkra', 'ghanaian', 'symbols', 'wisdom', 'cultural'],
+    images: ['https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg'],
   },
   {
     id: '14',
@@ -195,6 +208,7 @@ export const products: Product[] = [
     inStock: true,
     featured: false,
     tags: ['shweshwe', 'south-african', 'geometric', 'indigo', 'traditional'],
+    images: ['https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg'],
   },
 ];
 
