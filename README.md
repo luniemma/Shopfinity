@@ -78,7 +78,7 @@ cd client
 npm install
 
 # Install backend
-cd ../server
+cd backend
 npm install
 
 # Start both
