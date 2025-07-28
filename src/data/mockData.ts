@@ -22,6 +22,7 @@ export const products: Product[] = [
     reviews: 128,
     inStock: true,
     featured: true,
+    tags: ['wireless', 'bluetooth', 'headphones', 'audio', 'noise-cancellation'],
   },
   {
     id: '2',
@@ -34,6 +35,7 @@ export const products: Product[] = [
     reviews: 89,
     inStock: true,
     featured: true,
+    tags: ['smartwatch', 'fitness', 'health', 'wearable', 'sports'],
   },
   {
     id: '3',
@@ -46,6 +48,7 @@ export const products: Product[] = [
     reviews: 203,
     inStock: true,
     featured: false,
+    tags: ['organic', 'cotton', 't-shirt', 'clothing', 'sustainable'],
   },
   {
     id: '4',
@@ -59,6 +62,7 @@ export const products: Product[] = [
     reviews: 67,
     inStock: true,
     featured: true,
+    tags: ['camera', 'photography', 'dslr', 'professional', 'electronics'],
   },
   {
     id: '5',
@@ -71,6 +75,7 @@ export const products: Product[] = [
     reviews: 156,
     inStock: true,
     featured: false,
+    tags: ['yoga', 'fitness', 'mat', 'exercise', 'wellness'],
   },
   {
     id: '6',
@@ -83,6 +88,7 @@ export const products: Product[] = [
     reviews: 92,
     inStock: true,
     featured: false,
+    tags: ['plants', 'ceramic', 'pots', 'gardening', 'home-decor'],
   },
   {
     id: '7',
@@ -95,6 +101,7 @@ export const products: Product[] = [
     reviews: 45,
     inStock: true,
     featured: true,
+    tags: ['ankara', 'african', 'traditional', 'maxi-dress', 'handcrafted'],
   },
   {
     id: '8',
@@ -107,6 +114,7 @@ export const products: Product[] = [
     reviews: 32,
     inStock: true,
     featured: true,
+    tags: ['kente', 'ghanaian', 'traditional', 'handwoven', 'cultural'],
   },
   {
     id: '9',
@@ -120,6 +128,7 @@ export const products: Product[] = [
     reviews: 28,
     inStock: true,
     featured: false,
+    tags: ['dashiki', 'african', 'midi-dress', 'traditional', 'modern'],
   },
   {
     id: '10',
@@ -132,6 +141,7 @@ export const products: Product[] = [
     reviews: 41,
     inStock: true,
     featured: false,
+    tags: ['wax-print', 'african', 'a-line', 'geometric', 'traditional'],
   },
   {
     id: '11',
@@ -144,6 +154,7 @@ export const products: Product[] = [
     reviews: 19,
     inStock: true,
     featured: false,
+    tags: ['bogolan', 'mud-cloth', 'mali', 'traditional', 'hand-painted'],
   },
   {
     id: '12',
@@ -156,6 +167,7 @@ export const products: Product[] = [
     reviews: 36,
     inStock: true,
     featured: false,
+    tags: ['kitenge', 'east-african', 'wrap-dress', 'cotton', 'vibrant'],
   },
   {
     id: '13',
@@ -168,6 +180,7 @@ export const products: Product[] = [
     reviews: 23,
     inStock: true,
     featured: false,
+    tags: ['adinkra', 'ghanaian', 'symbols', 'wisdom', 'cultural'],
   },
   {
     id: '14',
@@ -181,6 +194,7 @@ export const products: Product[] = [
     reviews: 31,
     inStock: true,
     featured: false,
+    tags: ['shweshwe', 'south-african', 'geometric', 'indigo', 'traditional'],
   },
 ];
 
