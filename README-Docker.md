@@ -46,6 +46,22 @@ docker-compose up -d --build
 docker-compose logs -f
 ```
 
+## 🔨 **Individual Build Commands**
+
+```bash
+# Build backend (from project root)
+docker build -t shopfinity-backend:v1 ./backend
+
+# Build frontend (from project root)  
+docker build -t shopfinity-frontend:v1 .
+
+# Or build from specific directories
+cd backend
+docker build -t shopfinity-backend:v1 .
+cd ..
+docker build -t shopfinity-frontend:v1 .
+```
+
 ### 4. Access Application
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
