@@ -9,23 +9,27 @@ RUN apk add --no-cache \
     python3 \
     make \
     g++ \
-    curl
+    curl \
+    dumb-init
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001 -G nodejs
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (including dev dependencies for nodemon)
-RUN npm install
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
+# Install dependencies
+RUN npm install && npm cache clean --force
 
 # Copy application code
 COPY . .
 
-# Change ownership to nodejs user
-RUN chown -R nodejs:nodejs /app
+# Create uploads directory and set permissions
+RUN mkdir -p uploads && \
+    chown -R nodejs:nodejs /app
+
+# Switch to non-root user
 USER nodejs
 
 # Expose port
@@ -35,5 +39,8 @@ EXPOSE 5000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:5000/health || exit 1
 
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
 # Start the application
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
