@@ -1,5 +1,5 @@
 # Multi-stage build for React frontend
-FROM node:18-alpine as build
+FROM node:18-alpine AS build
 
 # Set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Production stage with nginx
-FROM nginx:alpine as production
+FROM nginx:alpine AS production
 
 # Copy built assets from build stage (Vite builds to 'dist\' directory)
 COPY --from=build /app/dist /usr/share/nginx/html
