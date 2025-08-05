@@ -1,0 +1,78 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  frontendImageName: 'luniemma/shopfinity-frontend'
+  backendImageName: 'luniemma/shopfinity-backend'
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: BuildAndPush
+  displayName: Build, Test, and Push Docker Images
+  jobs:
+  - job: DockerBuildPush
+    displayName: Build & Push Frontend and Backend
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+    # Build Frontend Image
+    - task: Docker@2
+      displayName: Build Frontend Image
+      inputs:
+        command: build
+        containerRegistry: shopfinity-imgs
+        repository: $(frontendImageName)
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          latest
+          $(tag)
+
+    # Test Frontend Image
+    - script: |
+        echo "Testing frontend container..."
+        docker run --rm $(frontendImageName):$(tag) echo "Frontend OK"
+      displayName: Test Frontend Image
+
+    # Push Frontend Image
+    - task: Docker@2
+      displayName: Push Frontend Image
+      inputs:
+        command: push
+        containerRegistry: shopfinity-imgs
+        repository: $(frontendImageName)
+        tags: |
+          latest
+          $(tag)
+
+    # Build Backend Image
+    - task: Docker@2
+      displayName: Build Backend Image
+      inputs:
+        command: build
+        containerRegistry: shopfinity-imgs
+        repository: $(backendImageName)
+        dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
+        tags: |
+          latest
+          $(tag)
+
+    # Test Backend Image
+    - script: |
+        echo "Testing backend container..."
+        docker run --rm $(backendImageName):$(tag) echo "Backend OK"
+      displayName: Test Backend Image
+
+    # Push Backend Image
+    - task: Docker@2
+      displayName: Push Backend Image
+      inputs:
+        command: push
+        containerRegistry: shopfinity-imgs
+        repository: $(backendImageName)
+        tags: |
+          latest
+          $(tag)
