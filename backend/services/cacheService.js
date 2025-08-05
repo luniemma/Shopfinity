@@ -8,22 +8,21 @@ class CacheService {
 
   async connect() {
     try {
+      const redisUrl = process.env.REDIS_URL || `redis://:${process.env.REDIS_PASSWORD || 'redis123'}@${process.env.REDIS_HOST || 'redis'}:${process.env.REDIS_PORT || 6379}`;
+      
       this.client = redis.createClient({
-        host: process.env.REDIS_HOST || 'redis',
-        port: process.env.REDIS_PORT || 6379,
-        password: process.env.REDIS_PASSWORD || 'redis123',
-        retry_strategy: (options) => {
-          if (options.error && options.error.code === 'ECONNREFUSED') {
-            console.error('Redis connection refused');
-            return new Error('Redis connection refused');
-          }
-          if (options.total_retry_time > 1000 * 60 * 60) {
-            return new Error('Retry time exhausted');
-          }
-          if (options.attempt > 10) {
-            return undefined;
-          }
-          return Math.min(options.attempt * 100, 3000);
+        url: redisUrl,
+        socket: {
+          reconnectStrategy: (retries) => {
+            if (retries > 10) {
+              console.error('Redis: Too many reconnection attempts, giving up');
+              return new Error('Too many reconnection attempts');
+            }
+            console.log(`Redis: Reconnection attempt ${retries}`);
+            return Math.min(retries * 100, 3000);
+          },
+          connectTimeout: 10000,
+          lazyConnect: true
         }
       });
 
@@ -33,7 +32,7 @@ class CacheService {
       });
 
       this.client.on('error', (err) => {
-        console.error('❌ Redis connection error:', err);
+        console.error('❌ Redis connection error:', err.message);
         this.isConnected = false;
       });
 
@@ -42,9 +41,13 @@ class CacheService {
         this.isConnected = false;
       });
 
+      this.client.on('reconnecting', () => {
+        console.log('🔄 Redis reconnecting...');
+      });
+
       await this.client.connect();
     } catch (error) {
-      console.error('Failed to connect to Redis:', error);
+      console.error('Failed to connect to Redis:', error.message);
       this.isConnected = false;
     }
   }

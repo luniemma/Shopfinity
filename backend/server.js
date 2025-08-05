@@ -79,14 +79,52 @@ app.listen(PORT, '0.0.0.0', () => {
 // Initialize Redis and RabbitMQ services
 async function initializeServices() {
   try {
-    // Connect to Redis
-    await cacheService.connect();
+    // Connect to Redis with retry logic
+    console.log('🔄 Initializing Redis connection...');
+    let redisRetries = 0;
+    const maxRedisRetries = 5;
     
-    // Connect to RabbitMQ
-    await messageService.connect();
+    while (redisRetries < maxRedisRetries) {
+      try {
+        await cacheService.connect();
+        break;
+      } catch (error) {
+        redisRetries++;
+        console.log(`Redis connection attempt ${redisRetries}/${maxRedisRetries} failed:`, error.message);
+        if (redisRetries < maxRedisRetries) {
+          console.log('Retrying Redis connection in 5 seconds...');
+          await new Promise(resolve => setTimeout(resolve, 5000));
+        } else {
+          console.error('❌ Redis connection failed after all retries. Continuing without Redis.');
+        }
+      }
+    }
+    
+    // Connect to RabbitMQ with retry logic
+    console.log('🔄 Initializing RabbitMQ connection...');
+    let rabbitmqRetries = 0;
+    const maxRabbitmqRetries = 5;
+    
+    while (rabbitmqRetries < maxRabbitmqRetries) {
+      try {
+        await messageService.connect();
+        break;
+      } catch (error) {
+        rabbitmqRetries++;
+        console.log(`RabbitMQ connection attempt ${rabbitmqRetries}/${maxRabbitmqRetries} failed:`, error.message);
+        if (rabbitmqRetries < maxRabbitmqRetries) {
+          console.log('Retrying RabbitMQ connection in 5 seconds...');
+          await new Promise(resolve => setTimeout(resolve, 5000));
+        } else {
+          console.error('❌ RabbitMQ connection failed after all retries. Continuing without RabbitMQ.');
+        }
+      }
+    }
     
     // Set up message consumers
-    setupMessageConsumers();
+    if (messageService.isConnected) {
+      setupMessageConsumers();
+    }
     
     console.log('✅ All services initialized successfully');
   } catch (error) {
