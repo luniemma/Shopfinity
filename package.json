@@ -1,4 +1,17 @@
 {
+<<<<<<< HEAD
+=======
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+>>>>>>> 468c4555b75e6fab1714e20ce2312de942853734
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
