@@ -25,7 +25,7 @@ FROM nginx:alpine AS production
 # Install curl for health checks
 RUN apk add --no-cache curl
 
-# Copy built assets from build stage (Vite builds to 'dist' directory)
+# Copy built assets from build stage (Vite builds to 'dist\' directory)
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
