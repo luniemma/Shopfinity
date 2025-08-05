@@ -176,6 +176,12 @@ db.categories.insertMany([
     productCount: 0
   },
   {
+    name: "Groceries",
+    slug: "groceries",
+    image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg",
+    productCount: 0
+  },
+  {
     name: "Clothing",
     slug: "clothing",
     image: "https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg",
@@ -265,13 +271,205 @@ db.products.insertMany([
     stockCount: 12,
     featured: true,
     tags: ["ankara", "african", "traditional", "maxi-dress", "handcrafted"]
+  },
+  // New Electronics Products
+  {
+    name: "Gaming Mechanical Keyboard",
+    description: "RGB backlit mechanical gaming keyboard with blue switches and programmable keys.",
+    price: 129.99,
+    originalPrice: 159.99,
+    category: "Electronics",
+    image: "https://images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg",
+    images: ["https://images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg"],
+    rating: 4.6,
+    reviewCount: 234,
+    inStock: true,
+    stockCount: 45,
+    featured: true,
+    tags: ["gaming", "keyboard", "mechanical", "rgb", "electronics"]
+  },
+  {
+    name: "Wireless Gaming Mouse",
+    description: "High-precision wireless gaming mouse with customizable DPI and RGB lighting.",
+    price: 79.99,
+    category: "Electronics",
+    image: "https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg",
+    images: ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg"],
+    rating: 4.4,
+    reviewCount: 189,
+    inStock: true,
+    stockCount: 32,
+    featured: false,
+    tags: ["gaming", "mouse", "wireless", "rgb", "electronics"]
+  },
+  {
+    name: "4K Webcam",
+    description: "Ultra HD 4K webcam with auto-focus and noise-canceling microphone for streaming.",
+    price: 149.99,
+    category: "Electronics",
+    image: "https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg",
+    images: ["https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg"],
+    rating: 4.7,
+    reviewCount: 156,
+    inStock: true,
+    stockCount: 28,
+    featured: true,
+    tags: ["webcam", "4k", "streaming", "microphone", "electronics"]
+  },
+  {
+    name: "Portable SSD 1TB",
+    description: "Ultra-fast portable SSD with USB-C connectivity and 1TB storage capacity.",
+    price: 199.99,
+    originalPrice: 249.99,
+    category: "Electronics",
+    image: "https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg",
+    images: ["https://images.pexels.com/photos/4219654/pexels-photo-4219654.jpeg"],
+    rating: 4.8,
+    reviewCount: 312,
+    inStock: true,
+    stockCount: 67,
+    featured: false,
+    tags: ["ssd", "storage", "portable", "usb-c", "electronics"]
+  },
+  {
+    name: "Wireless Earbuds Pro",
+    description: "Premium wireless earbuds with active noise cancellation and 8-hour battery life.",
+    price: 249.99,
+    category: "Electronics",
+    image: "https://images.pexels.com/photos/8534088/pexels-photo-8534088.jpeg",
+    images: ["https://images.pexels.com/photos/8534088/pexels-photo-8534088.jpeg"],
+    rating: 4.5,
+    reviewCount: 445,
+    inStock: true,
+    stockCount: 89,
+    featured: true,
+    tags: ["earbuds", "wireless", "noise-cancellation", "bluetooth", "electronics"]
+  },
+  // Grocery Products
+  {
+    name: "Organic Bananas (2 lbs)",
+    description: "Fresh organic bananas, perfect for snacking or smoothies. Rich in potassium and vitamins.",
+    price: 3.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg",
+    images: ["https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg"],
+    rating: 4.3,
+    reviewCount: 89,
+    inStock: true,
+    stockCount: 150,
+    featured: false,
+    tags: ["organic", "fruit", "bananas", "fresh", "healthy"]
+  },
+  {
+    name: "Fresh Avocados (4 pack)",
+    description: "Premium Hass avocados, perfectly ripe and ready to eat. Great for toast, salads, and guacamole.",
+    price: 7.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg",
+    images: ["https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg"],
+    rating: 4.6,
+    reviewCount: 234,
+    inStock: true,
+    stockCount: 78,
+    featured: true,
+    tags: ["avocado", "fresh", "healthy", "organic", "fruit"]
+  },
+  {
+    name: "Organic Whole Milk (1 Gallon)",
+    description: "Farm-fresh organic whole milk from grass-fed cows. Rich, creamy, and nutritious.",
+    price: 5.49,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg",
+    images: ["https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg"],
+    rating: 4.7,
+    reviewCount: 167,
+    inStock: true,
+    stockCount: 45,
+    featured: false,
+    tags: ["milk", "organic", "dairy", "whole-milk", "fresh"]
+  },
+  {
+    name: "Artisan Sourdough Bread",
+    description: "Handcrafted sourdough bread with a crispy crust and soft interior. Baked fresh daily.",
+    price: 4.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg",
+    images: ["https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg"],
+    rating: 4.8,
+    reviewCount: 298,
+    inStock: true,
+    stockCount: 23,
+    featured: true,
+    tags: ["bread", "sourdough", "artisan", "fresh", "bakery"]
+  },
+  {
+    name: "Free-Range Eggs (Dozen)",
+    description: "Farm-fresh free-range eggs from happy hens. Rich in protein and perfect for any meal.",
+    price: 6.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/162712/egg-white-food-protein-162712.jpeg",
+    images: ["https://images.pexels.com/photos/162712/egg-white-food-protein-162712.jpeg"],
+    rating: 4.5,
+    reviewCount: 145,
+    inStock: true,
+    stockCount: 67,
+    featured: false,
+    tags: ["eggs", "free-range", "protein", "fresh", "organic"]
+  },
+  {
+    name: "Premium Ground Coffee (1 lb)",
+    description: "Single-origin arabica coffee beans, medium roast. Rich flavor with notes of chocolate and caramel.",
+    price: 12.99,
+    originalPrice: 15.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg",
+    images: ["https://images.pexels.com/photos/894695/pexels-photo-894695.jpeg"],
+    rating: 4.9,
+    reviewCount: 567,
+    inStock: true,
+    stockCount: 89,
+    featured: true,
+    tags: ["coffee", "arabica", "medium-roast", "premium", "single-origin"]
+  },
+  {
+    name: "Organic Spinach (5 oz)",
+    description: "Fresh organic baby spinach leaves, pre-washed and ready to eat. Perfect for salads and smoothies.",
+    price: 3.49,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/2325843/pexels-photo-2325843.jpeg",
+    images: ["https://images.pexels.com/photos/2325843/pexels-photo-2325843.jpeg"],
+    rating: 4.4,
+    reviewCount: 123,
+    inStock: true,
+    stockCount: 34,
+    featured: false,
+    tags: ["spinach", "organic", "leafy-greens", "healthy", "fresh"]
+  },
+  {
+    name: "Wild Salmon Fillet (1 lb)",
+    description: "Fresh wild-caught salmon fillet, rich in omega-3 fatty acids. Sustainably sourced.",
+    price: 18.99,
+    category: "Groceries",
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg",
+    images: ["https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg"],
+    rating: 4.7,
+    reviewCount: 89,
+    inStock: true,
+    stockCount: 12,
+    featured: true,
+    tags: ["salmon", "fish", "wild-caught", "omega-3", "protein"]
   }
 ]);
 
 // Update category product counts
 db.categories.updateOne(
   { slug: "electronics" },
-  { $set: { productCount: 2 } }
+  { $set: { productCount: 7 } }
+);
+
+db.categories.updateOne(
+  { slug: "groceries" },
+  { $set: { productCount: 8 } }
 );
 
 db.categories.updateOne(
