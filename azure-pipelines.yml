@@ -5,22 +5,41 @@ resources:
 - repo: self
 
 variables:
+  imageName: 'luniemma/shopfinity'
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: BuildAndPush
+  displayName: Build, Test and Push Docker Image
   jobs:
-  - job: Build
-    displayName: Build
+  - job: DockerJob
+    displayName: Docker Build and Push
     pool:
       vmImage: ubuntu-latest
+
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build Docker Image
       inputs:
         command: build
+        containerRegistry: shopfinity-imgs
+        repository: $(imageName)
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
-          luniemma/shopfinity:latest
-          luniemma/shopfinity:$(tag)
+          latest
+          $(tag)
+
+    - script: |
+        echo "Running test container..."
+        docker run --rm $(imageName):$(tag) echo "Test successful"
+      displayName: Run basic container test
+
+    - task: Docker@2
+      displayName: Push Docker Image to Docker Hub
+      inputs:
+        command: push
+        containerRegistry: shopfinity-imgs
+        repository: $(imageName)
+        tags: |
+          latest
+          $(tag)
