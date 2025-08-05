@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: ServiceMonitor
+metadata:
+  name: shopfinity-backend-monitor
+  namespace: shopfinity
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 30s
+---
+apiVersion: v1
+kind: ServiceMonitor
+metadata:
+  name: shopfinity-frontend-monitor
+  namespace: shopfinity
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  endpoints:
+  - port: http
+    path: /metrics
+    interval: 30s
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard
+  namespace: shopfinity
+data:
+  shopfinity-dashboard.json: |
+    {
+      "dashboard": {
+        "title": "Shopfinity eCommerce Dashboard",
+        "panels": [
+          {
+            "title": "Backend Response Time",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "http_request_duration_seconds{job=\"backend\"}"
+              }
+            ]
+          },
+          {
+            "title": "Frontend Page Views",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "nginx_http_requests_total{job=\"frontend\"}"
+              }
+            ]
+          },
+          {
+            "title": "Database Connections",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "pg_stat_database_numbackends{job=\"postgres\"}"
+              }
+            ]
+          }
+        ]
+      }
+    }

@@ -1,0 +1,95 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  namespace: shopfinity
+spec:
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: postgres-backup
+            image: postgres:15-alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              export PGPASSWORD=$DB_PASSWORD
+              BACKUP_FILE="/backup/postgres-backup-$(date +%Y%m%d-%H%M%S).sql"
+              
+              echo "Creating PostgreSQL backup..."
+              pg_dump -h postgres-service -U shopfinity shopfinity_db > $BACKUP_FILE
+              
+              # Keep only last 7 backups
+              find /backup -name "postgres-backup-*.sql" -type f -mtime +7 -delete
+              
+              echo "Backup completed: $BACKUP_FILE"
+            env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: DB_PASSWORD
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: backup-pvc
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mongodb-backup
+  namespace: shopfinity
+spec:
+  schedule: "0 3 * * *"  # Daily at 3 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: mongodb-backup
+            image: mongo:6.0
+            command:
+            - /bin/sh
+            - -c
+            - |
+              BACKUP_DIR="/backup/mongodb-backup-$(date +%Y%m%d-%H%M%S)"
+              
+              echo "Creating MongoDB backup..."
+              mongodump --host mongodb-service --db shopfinity --out $BACKUP_DIR
+              
+              # Compress backup
+              tar -czf "${BACKUP_DIR}.tar.gz" -C /backup $(basename $BACKUP_DIR)
+              rm -rf $BACKUP_DIR
+              
+              # Keep only last 7 backups
+              find /backup -name "mongodb-backup-*.tar.gz" -type f -mtime +7 -delete
+              
+              echo "Backup completed: ${BACKUP_DIR}.tar.gz"
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: backup-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: backup-pvc
+  namespace: shopfinity
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: standard

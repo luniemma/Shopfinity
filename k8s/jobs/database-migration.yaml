@@ -1,0 +1,87 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: database-migration
+  namespace: shopfinity
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: migration
+        image: postgres:15-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Running database migrations..."
+          export PGPASSWORD=$DB_PASSWORD
+          
+          # Wait for PostgreSQL to be ready
+          until pg_isready -h postgres-service -p 5432 -U shopfinity; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+          
+          # Run migrations
+          psql -h postgres-service -U shopfinity -d shopfinity_db -c "
+            CREATE TABLE IF NOT EXISTS migration_history (
+              id SERIAL PRIMARY KEY,
+              migration_name VARCHAR(255) NOT NULL,
+              executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+          "
+          
+          echo "Database migration completed successfully"
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DB_PASSWORD
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-seed
+  namespace: shopfinity
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: seed
+        image: mongo:6.0
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Seeding MongoDB with initial data..."
+          
+          # Wait for MongoDB to be ready
+          until mongosh --host mongodb-service --eval "db.adminCommand('ping')"; do
+            echo "Waiting for MongoDB..."
+            sleep 2
+          done
+          
+          # Seed initial data
+          mongosh --host mongodb-service shopfinity --eval "
+            db.categories.insertMany([
+              { name: 'Electronics', slug: 'electronics', productCount: 0 },
+              { name: 'Clothing', slug: 'clothing', productCount: 0 },
+              { name: 'Home & Garden', slug: 'home-garden', productCount: 0 }
+            ]);
+            
+            db.products.insertMany([
+              {
+                name: 'Sample Product',
+                description: 'This is a sample product',
+                price: 99.99,
+                category: 'Electronics',
+                inStock: true,
+                featured: true
+              }
+            ]);
+          "
+          
+          echo "MongoDB seeding completed successfully"
