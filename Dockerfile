@@ -19,7 +19,7 @@ RUN npm run build
 # Production stage with nginx
 FROM nginx:alpine AS production
 
-# Copy built assets from build stage (Vite builds to 'dist' directory)
+# Copy built assets from build stage (Vite builds to 'dist\' directory)
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
