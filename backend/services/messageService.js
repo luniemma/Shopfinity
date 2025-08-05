@@ -9,13 +9,14 @@ class MessageService {
 
   async connect() {
     try {
-      const rabbitmqUrl = `amqp://${process.env.RABBITMQ_USER || 'shopfinity'}:${process.env.RABBITMQ_PASSWORD || 'rabbit123'}@${process.env.RABBITMQ_HOST || 'rabbitmq'}:${process.env.RABBITMQ_PORT || 5672}`;
+      const rabbitmqUrl = process.env.RABBITMQ_URL || `amqp://${process.env.RABBITMQ_USER || 'shopfinity'}:${process.env.RABBITMQ_PASSWORD || 'rabbit123'}@${process.env.RABBITMQ_HOST || 'rabbitmq'}:${process.env.RABBITMQ_PORT || 5672}`;
       
+      console.log('🔄 Connecting to RabbitMQ...');
       this.connection = await amqp.connect(rabbitmqUrl);
       this.channel = await this.connection.createChannel();
       
       this.connection.on('error', (err) => {
-        console.error('❌ RabbitMQ connection error:', err);
+        console.error('❌ RabbitMQ connection error:', err.message);
         this.isConnected = false;
       });
 
@@ -30,8 +31,9 @@ class MessageService {
       console.log('✅ RabbitMQ connected successfully');
       this.isConnected = true;
     } catch (error) {
-      console.error('Failed to connect to RabbitMQ:', error);
+      console.error('Failed to connect to RabbitMQ:', error.message);
       this.isConnected = false;
+      throw error;
     }
   }
 
