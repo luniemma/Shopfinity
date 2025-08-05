@@ -350,8 +350,8 @@ services:
                 
                 // Update Kubernetes manifests with new image tags
                 sh """
-                    sed -i 's|shopfinity-frontend:latest|${FRONTEND_IMAGE}|g' k8s/frontend/frontend.yaml
-                    sed -i 's|shopfinity-backend:latest|${BACKEND_IMAGE}|g' k8s/backend/backend.yaml
+                    sed -i 's|shopfinity-frontend:latest|${FRONTEND_IMAGE}|g\' k8s/frontend/frontend.yaml
+                    sed -i 's|shopfinity-backend:latest|${BACKEND_IMAGE}|g\' k8s/backend/backend.yaml
                 """
                 
                 // Deploy to Kubernetes
