@@ -153,7 +153,7 @@ module "eks" {
   # Cluster add-ons
   cluster_addons = {
     for name, config in var.cluster_addons : name => {
-      addon_version     = config.version
+      addon_version     = config.addon_version
       configuration_values = config.configuration_values
       resolve_conflicts = "OVERWRITE"
       

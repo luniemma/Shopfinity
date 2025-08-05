@@ -169,7 +169,7 @@ output "cluster_autoscaler_role_arn" {
 
 output "aws_load_balancer_controller_role_arn" {
   description = "IAM role ARN for AWS Load Balancer Controller"
-  value       = var.enable_aws_load_balancer_controller ? module.aws_load_balancer_controller[0].iam_role_arn : null
+  value       = var.enable_aws_load_balancer_controller ? aws_iam_role.aws_load_balancer_controller[0].arn : null
 }
 
 # Storage
