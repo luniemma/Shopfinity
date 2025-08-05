@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const cacheService = require('./services/cacheService');
+const messageService = require('./services/messageService');
 require('dotenv').config();
 
 const app = express();
@@ -69,15 +71,61 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Shopfinity Backend Server running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+  
+  // Initialize services
+  initializeServices();
 });
+
+// Initialize Redis and RabbitMQ services
+async function initializeServices() {
+  try {
+    // Connect to Redis
+    await cacheService.connect();
+    
+    // Connect to RabbitMQ
+    await messageService.connect();
+    
+    // Set up message consumers
+    setupMessageConsumers();
+    
+    console.log('✅ All services initialized successfully');
+  } catch (error) {
+    console.error('❌ Error initializing services:', error);
+  }
+}
+
+// Set up message consumers
+function setupMessageConsumers() {
+  // Order processing consumer
+  messageService.consume('order.created', async (message) => {
+    console.log('Processing new order:', message);
+    // Add order processing logic here
+  });
+
+  // Email notification consumer
+  messageService.consume('email.notifications', async (message) => {
+    console.log('Sending email notification:', message);
+    // Add email sending logic here
+  });
+
+  // Inventory update consumer
+  messageService.consume('inventory.updated', async (message) => {
+    console.log('Updating inventory:', message);
+    // Add inventory update logic here
+  });
+}
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
   console.log('SIGTERM received, shutting down gracefully');
+  cacheService.disconnect();
+  messageService.disconnect();
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
   console.log('SIGINT received, shutting down gracefully');
+  cacheService.disconnect();
+  messageService.disconnect();
   process.exit(0);
 });

@@ -6,11 +6,15 @@ Complete Docker configuration for the Shopfinity African Fashion E-commerce Plat
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │    Backend      │    │   Databases     │
+│   Frontend      │    │    Backend      │    │   Services      │
 │   (React)       │    │   (Node.js)     │    │                 │
 │   Port: 3000    │◄──►│   Port: 5000    │◄──►│ PostgreSQL:5432 │
 │   Nginx         │    │   Express API   │    │ MongoDB: 27017  │
 └─────────────────┘    └─────────────────┘    │ Redis: 6379     │
+                                              │ RabbitMQ: 5672  │
+                                              │ Redis GUI: 8081 │
+                                              │ RabbitMQ UI:    │
+                                              │   15672         │
                                               └─────────────────┘
 ```
 
@@ -66,6 +70,8 @@ docker build -t shopfinity-frontend:v1 .
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 - **Health Check**: http://localhost:5000/health
+- **RabbitMQ Management**: http://localhost:15672 (shopfinity/rabbit123)
+- **Redis Commander**: http://localhost:8081 (admin/admin123)
 
 ## 📦 Services
 
@@ -94,6 +100,18 @@ docker build -t shopfinity-frontend:v1 .
 - **Port**: 6379
 - **Usage**: Session storage, caching
 - **Persistence**: Named volume `redis_data`
+- **Features**: Product caching, session management, cart storage
+
+### RabbitMQ Message Broker
+- **Port**: 5672 (AMQP), 15672 (Management UI)
+- **Usage**: Asynchronous message processing
+- **Features**: Order processing, notifications, inventory updates
+- **Persistence**: Named volume `rabbitmq_data`
+
+### Redis Commander (Optional)
+- **Port**: 8081
+- **Usage**: Redis database GUI
+- **Access**: admin/admin123
 
 ## 🛠️ Development Commands
 
