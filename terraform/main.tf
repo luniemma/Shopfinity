@@ -31,21 +31,6 @@ terraform {
   # Use local state by default for easier setup
 }
 
-# Configure AWS Provider
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Project     = "Shopfinity"
-      Environment = var.environment
-      ManagedBy   = "Terraform"
-      Owner       = var.owner
-      CostCenter  = var.cost_center
-    }
-  }
-}
-
 # Data sources
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
