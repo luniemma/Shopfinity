@@ -392,3 +392,10 @@ resource "aws_cloudwatch_log_group" "elasticache" {
   retention_in_days = 30
 
   tags = local.common_tags
+}
+
+# Output database endpoints
+output "rds_security_group_id" {
+  description = "Security group ID for RDS instance"
+  value       = var.enable_rds ? aws_security_group.rds[0].id : null
+}

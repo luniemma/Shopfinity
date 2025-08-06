@@ -1,9 +1,9 @@
 # Shopfinity EKS Terraform Configuration
-# Copy this file to terraform.tfvars and customize for your environment
+# Customize these values for your environment
 
 # Project Configuration
 project_name = "shopfinity"
-environment  = "dev"  # dev, staging, prod
+environment  = "dev"
 owner        = "DevOps Team"
 cost_center  = "Engineering"
 
@@ -14,7 +14,7 @@ aws_region = "us-west-2"
 cluster_version                      = "1.28"
 cluster_endpoint_private_access      = true
 cluster_endpoint_public_access       = true
-cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]  # Restrict this in production
+cluster_endpoint_public_access_cidrs = ["0.0.0.0/0"]
 
 # Node Groups Configuration
 node_groups = {
@@ -74,36 +74,22 @@ fargate_profiles = {
 # Add-ons Configuration
 cluster_addons = {
   coredns = {
-    version = "v1.10.1-eksbuild.5"
-    configuration_values = jsonencode({
-      computeType = "Fargate"
-      resources = {
-        limits = {
-          cpu    = "0.25"
-          memory = "256M"
-        }
-        requests = {
-          cpu    = "0.25"
-          memory = "256M"
-        }
-      }
-    })
+    addon_version         = "v1.10.1-eksbuild.5"
+    configuration_values = ""
   }
   
   kube-proxy = {
-    version = "v1.28.2-eksbuild.2"
+    addon_version         = "v1.28.2-eksbuild.2"
     configuration_values = ""
   }
   
   vpc-cni = {
-    version = "v1.15.4-eksbuild.1"
-    configuration_values = jsonencode({
-      enableNetworkPolicy = "true"
-    })
+    addon_version         = "v1.15.4-eksbuild.1"
+    configuration_values = ""
   }
   
   aws-ebs-csi-driver = {
-    version = "v1.24.0-eksbuild.1"
+    addon_version         = "v1.24.0-eksbuild.1"
     configuration_values = ""
   }
 }
@@ -123,19 +109,19 @@ cluster_enabled_log_types = [
 
 # Networking Configuration
 enable_nat_gateway    = true
-single_nat_gateway    = false  # Set to true for cost optimization in dev
+single_nat_gateway    = false
 enable_dns_hostnames  = true
 enable_dns_support    = true
 
 # Database Configuration
 enable_rds              = true
-rds_instance_class      = "db.t3.micro"  # Use db.r6g.large for production
+rds_instance_class      = "db.t3.micro"
 
 enable_documentdb       = true
-documentdb_instance_class = "db.t3.medium"  # Use db.r6g.large for production
+documentdb_instance_class = "db.t3.medium"
 
 enable_elasticache      = true
-elasticache_node_type   = "cache.t3.micro"  # Use cache.r6g.large for production
+elasticache_node_type   = "cache.t3.micro"
 
 # Auto Scaling Configuration
 enable_cluster_autoscaler = true
@@ -148,11 +134,14 @@ enable_aws_load_balancer_controller = true
 enable_velero           = true
 backup_retention_days   = 30
 
-# Monitoring Configuration (optional)
-slack_webhook_url = ""  # Add your Slack webhook URL
-alert_email      = ""   # Add your email for CloudWatch alerts
+# Monitoring Configuration
+slack_webhook_url = ""
+alert_email      = ""
 
-# Application Secrets (optional - can be set via environment variables)
-stripe_secret_key      = ""  # Set via TF_VAR_stripe_secret_key
-stripe_publishable_key = ""  # Set via TF_VAR_stripe_publishable_key
-smtp_password         = ""   # Set via TF_VAR_smtp_password
+# Application Secrets (set via environment variables)
+# export TF_VAR_stripe_secret_key="sk_test_..."
+# export TF_VAR_stripe_publishable_key="pk_test_..."
+# export TF_VAR_smtp_password="your-smtp-password"
+stripe_secret_key      = ""
+stripe_publishable_key = ""
+smtp_password         = ""
