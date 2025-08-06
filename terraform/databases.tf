@@ -425,18 +425,3 @@ resource "kubernetes_secret" "database_credentials" {
 
   type = "Opaque"
 }
-
-# Create shopfinity namespace
-resource "kubernetes_namespace" "shopfinity" {
-  depends_on = [module.eks]
-  
-  metadata {
-    name = "shopfinity"
-    
-    labels = {
-      name        = "shopfinity"
-      environment = var.environment
-      managed-by  = "terraform"
-    }
-  }
-}

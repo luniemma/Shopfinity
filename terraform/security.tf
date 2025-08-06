@@ -227,6 +227,24 @@ resource "kubernetes_service_account" "shopfinity_backend" {
   }
 }
 
+# Create shopfinity namespace
+resource "kubernetes_namespace" "shopfinity" {
+  depends_on = [module.eks]
+  
+  metadata {
+    name = "shopfinity"
+    
+    labels = {
+      name        = "shopfinity"
+      environment = var.environment
+      managed-by  = "terraform"
+      "pod-security.kubernetes.io/enforce" = "restricted"
+      "pod-security.kubernetes.io/audit"   = "restricted"
+      "pod-security.kubernetes.io/warn"    = "restricted"
+    }
+  }
+}
+
 # RBAC for Shopfinity application
 resource "kubernetes_role" "shopfinity_app" {
   depends_on = [module.eks, kubernetes_namespace.shopfinity]

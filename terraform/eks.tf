@@ -163,22 +163,24 @@ module "eks" {
     }
   }
 
-  # Access entries for cluster access
-  access_entries = {
-    admin = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-      
-      policy_associations = {
-        admin = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope = {
-            type = "cluster"
-          }
-        }
-      }
+  # AWS auth config map for cluster access
+  manage_aws_auth_configmap = true
+  
+  aws_auth_roles = [
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+      username = "admin"
+      groups   = ["system:masters"]
     }
-  }
+  ]
+  
+  aws_auth_users = [
+    {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+      username = "admin"
+      groups   = ["system:masters"]
+    }
+  ]
 
   tags = local.common_tags
 }
