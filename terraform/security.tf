@@ -85,14 +85,12 @@ resource "aws_s3_bucket_versioning" "shopfinity_assets" {
   }
 }
 
-resource "aws_s3_bucket_encryption" "shopfinity_assets" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "shopfinity_assets" {
   bucket = aws_s3_bucket.shopfinity_assets.id
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
 }
