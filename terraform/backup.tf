@@ -52,6 +52,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "velero_backups" {
     id     = "backup_lifecycle"
     status = "Enabled"
 
+    filter {
+      prefix = ""
+    }
+
     expiration {
       days = var.backup_retention_days
     }
