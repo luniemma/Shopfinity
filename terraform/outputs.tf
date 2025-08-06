@@ -148,12 +148,12 @@ output "cluster_iam_role_arn" {
 
 output "node_groups_iam_role_name" {
   description = "IAM role name associated with EKS node groups"
-  value       = module.eks.eks_managed_node_groups_iam_role_name
+  value       = try(values(module.eks.eks_managed_node_groups)[0].iam_role_name, null)
 }
 
 output "node_groups_iam_role_arn" {
   description = "IAM role ARN associated with EKS node groups"
-  value       = module.eks.eks_managed_node_groups_iam_role_arn
+  value       = try(values(module.eks.eks_managed_node_groups)[0].iam_role_arn, null)
 }
 
 # Application IAM Roles
