@@ -47,6 +47,8 @@ module "eks" {
       resources        = ["secrets"]
     }
   ] : []
+    }
+  ] : []
 
   # Logging
   cluster_enabled_log_types = var.enable_cloudwatch_logging ? var.cluster_enabled_log_types : []
