@@ -21,18 +21,14 @@ terraform {
       source  = "hashicorp/tls"
       version = "~> 4.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.1"
+    }
   }
 
-  # Remote state configuration (optional - comment out for local state)
-  # backend "s3" {
-  #   bucket  = "your-terraform-state-bucket"
-  #   key     = "shopfinity/eks/terraform.tfstate"
-  #   region  = "us-west-2"
-  #   encrypt = true
-  #   
-  #   # For DynamoDB locking (optional)
-  #   dynamodb_table = "terraform-state-locks"
-  # }
+  # Note: Backend configuration moved to backend-setup.tf
+  # Use local state by default for easier setup
 }
 
 # Configure AWS Provider

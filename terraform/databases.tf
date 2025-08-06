@@ -392,36 +392,3 @@ resource "aws_cloudwatch_log_group" "elasticache" {
   retention_in_days = 30
 
   tags = local.common_tags
-}
-
-# Store database credentials in Kubernetes secrets
-resource "kubernetes_secret" "database_credentials" {
-  depends_on = [module.eks]
-  
-  metadata {
-    name      = "database-credentials"
-    namespace = "shopfinity"
-  }
-
-  data = {
-    # PostgreSQL
-    postgres_host     = var.enable_rds ? aws_db_instance.shopfinity[0].endpoint : ""
-    postgres_port     = var.enable_rds ? tostring(aws_db_instance.shopfinity[0].port) : ""
-    postgres_database = var.enable_rds ? aws_db_instance.shopfinity[0].db_name : ""
-    postgres_username = var.enable_rds ? aws_db_instance.shopfinity[0].username : ""
-    postgres_password = var.enable_rds ? random_password.rds_password[0].result : ""
-    
-    # DocumentDB
-    documentdb_host     = var.enable_documentdb ? aws_docdb_cluster.shopfinity[0].endpoint : ""
-    documentdb_port     = var.enable_documentdb ? tostring(aws_docdb_cluster.shopfinity[0].port) : ""
-    documentdb_username = var.enable_documentdb ? aws_docdb_cluster.shopfinity[0].master_username : ""
-    documentdb_password = var.enable_documentdb ? random_password.documentdb_password[0].result : ""
-    
-    # Redis
-    redis_host     = var.enable_elasticache ? aws_elasticache_replication_group.shopfinity[0].primary_endpoint_address : ""
-    redis_port     = var.enable_elasticache ? tostring(aws_elasticache_replication_group.shopfinity[0].port) : ""
-    redis_password = var.enable_elasticache ? random_password.redis_password[0].result : ""
-  }
-
-  type = "Opaque"
-}
