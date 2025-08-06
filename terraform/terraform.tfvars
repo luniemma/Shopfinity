@@ -2,7 +2,7 @@
 # Customize these values for your environment
 
 # Project Configuration
-project_name = "shopfinity"
+project_name = "shop"
 environment  = "dev"
 owner        = "DevOps Team"
 cost_center  = "Engineering"

@@ -41,12 +41,10 @@ module "eks" {
   cluster_additional_security_group_ids = [aws_security_group.additional_eks.id]
   
   # Encryption
-  cluster_encryption_config = var.enable_cluster_encryption ? [
-    {
-      provider_key_arn = aws_kms_key.eks[0].arn
-      resources        = ["secrets"]
-    }
-  ] : []
+  cluster_encryption_config = var.enable_cluster_encryption ? {
+    provider_key_arn = aws_kms_key.eks[0].arn
+    resources        = ["secrets"]
+  } : {}
 
   # Logging
   cluster_enabled_log_types = var.enable_cloudwatch_logging ? var.cluster_enabled_log_types : []
@@ -59,7 +57,7 @@ module "eks" {
   # Node Groups
   eks_managed_node_groups = {
     for name, config in var.node_groups : name => {
-      name           = "${local.cluster_name}-${name}"
+      name           = "${var.project_name}-${name}"
       instance_types = config.instance_types
       capacity_type  = config.capacity_type
       
@@ -79,7 +77,7 @@ module "eks" {
       
       # Launch template configuration
       create_launch_template = true
-      launch_template_name   = "${local.cluster_name}-${name}"
+      launch_template_name   = "${var.project_name}-${name}"
       launch_template_use_name_prefix = true
       launch_template_version = "$Latest"
       
@@ -131,7 +129,7 @@ module "eks" {
       }
       
       tags = merge(local.common_tags, {
-        Name = "${local.cluster_name}-${name}-node-group"
+        Name = "${var.project_name}-${name}-ng"
       })
     }
   }
@@ -139,13 +137,13 @@ module "eks" {
   # Fargate Profiles
   fargate_profiles = {
     for name, config in var.fargate_profiles : name => {
-      name = "${local.cluster_name}-${name}"
+      name = "${var.project_name}-${name}"
       selectors = config.selectors
       
       subnet_ids = module.vpc.private_subnets
       
       tags = merge(local.common_tags, {
-        Name = "${local.cluster_name}-${name}-fargate"
+        Name = "${var.project_name}-${name}-fg"
       })
     }
   }
@@ -158,7 +156,7 @@ module "eks" {
       resolve_conflicts = "OVERWRITE"
       
       tags = merge(local.common_tags, {
-        Name = "${local.cluster_name}-${name}-addon"
+        Name = "${var.project_name}-${name}-addon"
       })
     }
   }
