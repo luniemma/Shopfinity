@@ -80,22 +80,22 @@ cluster_enabled_log_types = [
 # Add-ons Configuration
 cluster_addons = {
   coredns = {
-    addon_version = "v1.10.1-eksbuild.5"
-    configuration_values = "{\"computeType\":\"Fargate\",\"resources\":{\"limits\":{\"cpu\":\"0.25\",\"memory\":\"256M\"},\"requests\":{\"cpu\":\"0.25\",\"memory\":\"256M\"}}}"
+    addon_version         = "v1.10.1-eksbuild.5"
+    configuration_values = ""
   }
   
   kube-proxy = {
-    addon_version = "v1.28.2-eksbuild.2"
+    addon_version         = "v1.28.2-eksbuild.2"
     configuration_values = ""
   }
   
   vpc-cni = {
-    addon_version = "v1.15.4-eksbuild.1"
-    configuration_values = "{\"enableNetworkPolicy\":\"true\"}"
+    addon_version         = "v1.15.4-eksbuild.1"
+    configuration_values = ""
   }
   
   aws-ebs-csi-driver = {
-    addon_version = "v1.24.0-eksbuild.1"
+    addon_version         = "v1.24.0-eksbuild.1"
     configuration_values = ""
   }
 }

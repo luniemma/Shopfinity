@@ -110,6 +110,7 @@ nano terraform.tfvars
 
 ### 2. **Initialize Terraform**
 ```bash
+# Option 1: Local state (recommended for getting started)
 # Initialize Terraform
 terraform init
 
@@ -118,6 +119,19 @@ terraform plan
 
 # Apply infrastructure
 terraform apply
+
+# Option 2: Remote state (recommended for production)
+# First, create the S3 bucket and DynamoDB table
+terraform apply -target=aws_s3_bucket.terraform_state -target=aws_dynamodb_table.terraform_locks
+
+# Get the bucket name
+BUCKET_NAME=$(terraform output -raw terraform_state_bucket)
+
+# Update main.tf with the backend configuration
+# Uncomment and update the backend block in main.tf with your bucket name
+
+# Re-initialize with remote backend
+terraform init -migrate-state
 ```
 
 ### 3. **Configure kubectl**
