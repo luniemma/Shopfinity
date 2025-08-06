@@ -41,10 +41,12 @@ module "eks" {
   cluster_additional_security_group_ids = [aws_security_group.additional_eks.id]
   
   # Encryption
-  cluster_encryption_config = var.enable_cluster_encryption ? {
-    provider_key_arn = aws_kms_key.eks[0].arn
-    resources        = ["secrets"]
-  } : {}
+  cluster_encryption_config = var.enable_cluster_encryption ? [
+    {
+      provider_key_arn = aws_kms_key.eks[0].arn
+      resources        = ["secrets"]
+    }
+  ] : []
 
   # Logging
   cluster_enabled_log_types = var.enable_cloudwatch_logging ? var.cluster_enabled_log_types : []
