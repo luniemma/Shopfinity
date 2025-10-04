@@ -11,35 +11,32 @@ resource "helm_release" "aws_load_balancer_controller" {
   namespace  = "kube-system"
   version    = "1.6.2"
 
-  set {
-    name  = "clusterName"
-    value = module.eks.cluster_name
-  }
-
-  set {
-    name  = "serviceAccount.create"
-    value = "true"
-  }
-
-  set {
-    name  = "serviceAccount.name"
-    value = "aws-load-balancer-controller"
-  }
-
-  set {
-    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.aws_load_balancer_controller[0].arn
-  }
-
-  set {
-    name  = "region"
-    value = data.aws_region.current.name
-  }
-
-  set {
-    name  = "vpcId"
-    value = module.vpc.vpc_id
-  }
+  set = [
+    {
+      name  = "clusterName"
+      value = module.eks.cluster_name
+    },
+    {
+      name  = "serviceAccount.create"
+      value = "true"
+    },
+    {
+      name  = "serviceAccount.name"
+      value = "aws-load-balancer-controller"
+    },
+    {
+      name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+      value = aws_iam_role.aws_load_balancer_controller[0].arn
+    },
+    {
+      name  = "region"
+      value = data.aws_region.current.name
+    },
+    {
+      name  = "vpcId"
+      value = module.vpc.vpc_id
+    }
+  ]
 
   depends_on = [module.eks]
 }
@@ -233,40 +230,36 @@ resource "helm_release" "cluster_autoscaler" {
   namespace  = "kube-system"
   version    = "9.29.0"
 
-  set {
-    name  = "autoDiscovery.clusterName"
-    value = module.eks.cluster_name
-  }
-
-  set {
-    name  = "awsRegion"
-    value = data.aws_region.current.name
-  }
-
-  set {
-    name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.cluster_autoscaler[0].arn
-  }
-
-  set {
-    name  = "rbac.serviceAccount.name"
-    value = "cluster-autoscaler"
-  }
-
-  set {
-    name  = "extraArgs.scale-down-delay-after-add"
-    value = "10m"
-  }
-
-  set {
-    name  = "extraArgs.scale-down-unneeded-time"
-    value = "10m"
-  }
-
-  set {
-    name  = "extraArgs.skip-nodes-with-local-storage"
-    value = "false"
-  }
+  set = [
+    {
+      name  = "autoDiscovery.clusterName"
+      value = module.eks.cluster_name
+    },
+    {
+      name  = "awsRegion"
+      value = data.aws_region.current.name
+    },
+    {
+      name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+      value = aws_iam_role.cluster_autoscaler[0].arn
+    },
+    {
+      name  = "rbac.serviceAccount.name"
+      value = "cluster-autoscaler"
+    },
+    {
+      name  = "extraArgs.scale-down-delay-after-add"
+      value = "10m"
+    },
+    {
+      name  = "extraArgs.scale-down-unneeded-time"
+      value = "10m"
+    },
+    {
+      name  = "extraArgs.skip-nodes-with-local-storage"
+      value = "false"
+    }
+  ]
 
   depends_on = [module.eks]
 }
@@ -336,10 +329,12 @@ resource "helm_release" "metrics_server" {
   namespace  = "kube-system"
   version    = "3.11.0"
 
-  set {
-    name  = "args"
-    value = "{--cert-dir=/tmp,--secure-port=4443,--kubelet-preferred-address-types=InternalIP\\,ExternalIP\\,Hostname,--kubelet-use-node-status-port,--metric-resolution=15s}"
-  }
+  set = [
+    {
+      name  = "args"
+      value = "{--cert-dir=/tmp,--secure-port=4443,--kubelet-preferred-address-types=InternalIP\\,ExternalIP\\,Hostname,--kubelet-use-node-status-port,--metric-resolution=15s}"
+    }
+  ]
 
   depends_on = [module.eks]
 }
@@ -354,35 +349,32 @@ resource "helm_release" "nginx_ingress" {
 
   create_namespace = true
 
-  set {
-    name  = "controller.service.type"
-    value = "LoadBalancer"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
-    value = "nlb"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.metrics.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.podSecurityContext.runAsNonRoot"
-    value = "true"
-  }
-
-  set {
-    name  = "controller.podSecurityContext.runAsUser"
-    value = "101"
-  }
+  set = [
+    {
+      name  = "controller.service.type"
+      value = "LoadBalancer"
+    },
+    {
+      name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
+      value = "nlb"
+    },
+    {
+      name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled"
+      value = "true"
+    },
+    {
+      name  = "controller.metrics.enabled"
+      value = "true"
+    },
+    {
+      name  = "controller.podSecurityContext.runAsNonRoot"
+      value = "true"
+    },
+    {
+      name  = "controller.podSecurityContext.runAsUser"
+      value = "101"
+    }
+  ]
 
   depends_on = [module.eks]
 }
@@ -397,20 +389,20 @@ resource "helm_release" "cert_manager" {
 
   create_namespace = true
 
-  set {
-    name  = "installCRDs"
-    value = "true"
-  }
-
-  set {
-    name  = "global.leaderElection.namespace"
-    value = "cert-manager"
-  }
-
-  set {
-    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.cert_manager.arn
-  }
+  set = [
+    {
+      name  = "installCRDs"
+      value = "true"
+    },
+    {
+      name  = "global.leaderElection.namespace"
+      value = "cert-manager"
+    },
+    {
+      name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+      value = aws_iam_role.cert_manager.arn
+    }
+  ]
 
   depends_on = [module.eks]
 }
@@ -478,35 +470,32 @@ resource "helm_release" "external_dns" {
 
   create_namespace = true
 
-  set {
-    name  = "provider"
-    value = "aws"
-  }
-
-  set {
-    name  = "aws.region"
-    value = data.aws_region.current.name
-  }
-
-  set {
-    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.external_dns.arn
-  }
-
-  set {
-    name  = "policy"
-    value = "sync"
-  }
-
-  set {
-    name  = "registry"
-    value = "txt"
-  }
-
-  set {
-    name  = "txtOwnerId"
-    value = local.cluster_name
-  }
+  set = [
+    {
+      name  = "provider"
+      value = "aws"
+    },
+    {
+      name  = "aws.region"
+      value = data.aws_region.current.name
+    },
+    {
+      name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+      value = aws_iam_role.external_dns.arn
+    },
+    {
+      name  = "policy"
+      value = "sync"
+    },
+    {
+      name  = "registry"
+      value = "txt"
+    },
+    {
+      name  = "txtOwnerId"
+      value = local.cluster_name
+    }
+  ]
 
   depends_on = [module.eks]
 }

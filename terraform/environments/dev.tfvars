@@ -129,4 +129,4 @@ backup_retention_days   = 7
 
 # Monitoring Configuration
 slack_webhook_url = ""
-alert_email      = "dev-team@yourcompany.com"
+alert_email      = "dev-team@shofinity.com"
